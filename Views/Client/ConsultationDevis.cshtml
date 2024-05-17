@@ -1,0 +1,52 @@
+@using btp.Models.includes
+@{
+    ViewData["Title"] = "Consultation d'un devis";
+}
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            Devis
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="table-responsive mb-4" style="margin: 2%;">
+            <table class="table table-borderless ">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Client </td>
+                        <td>@Model.Devi.IdclientNavigation.Numero</td>
+                    </tr>
+                    <tr>
+                        <td>Type de maison</td>
+                        <td>@Model.Devi.IdtypemaisonNavigation.NomMaison</td>
+                    </tr>
+                    <tr>
+                        <td>Type de finition</td>
+                        <td>@Model.Devi.IdtypefinitionNavigation.NomFinition (@Model.Devi.IdtypefinitionNavigation.AugmentationPourcentage %)</td>
+                    </tr>
+                    <tr>
+                        <td>Montant travaux</td>
+                        <td>Ar @SessionHelper.GetFormatted(Model.Devi.MontantTotalTravaux)</td>
+                    </tr>
+                    <tr>
+                        <td>Montant total+finition</td>
+                        <td>Ar @SessionHelper.GetFormatted(Model.Devi.MontantTotal)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @{
+            @* var data = JSON.stringify(Model); *@
+        }
+        <div class="card-footer">
+            <a class="btn btn-primary btn-block" asp-controller="Client" asp-action="Confirmer"
+                asp-route-data=@Model.String>Suite</a>
+        </div>
+    </div>
+</div>

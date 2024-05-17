@@ -1,0 +1,46 @@
+<style>
+    .logo {
+        @* color: var(--bs-form-valid-border-color); *@
+        font-size: 90%;
+        margin: 0%;
+    }
+</style>
+<div id="sidebar">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header position-relative">
+            <div class="d-flex align-items-center">
+                <a class="btn icon icon-left logo">
+                    <i class="bi bi-bank"></i>
+                    HOME RENOVATION
+                </a>
+
+                <div class="sidebar-toggler  x">
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="sidebar-title"></li>
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-bank2"></i>
+                        <span>Devis</span>
+                    </a>
+                    <ul class="submenu ">
+                         <li class="submenu-item  ">
+                            <a asp-controller="Client" asp-action="All" class="submenu-link">Liste des devis</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a asp-controller="Client" asp-action="DevisRequest" class="submenu-link">Demander un devis</a>
+                        </li>
+                       
+
+                    </ul>
+                </li>
+                <li class="sidebar-title">Extra UI</li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+@inject IHttpContextAccessor HttpContextAccessor
+<div class="page-heading layout-horizontal">
+    <div class="header-top ">
+        <div class="container">
+            <div class="header-top-left">
+                <h3>@ViewData["Title"]</h3>
+            </div>
+            <div class="header-top-right">
+                <div class="dropdown">
+                    <a href="#" id="topbarUserDropdown" class="user-dropdown d-flex align-items-center dropend "
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                           <div class="btn btn-icon icon-left btn-outline-primary">
+                                @if (HttpContextAccessor.HttpContext.Session.GetInt32("idclient") !=null)
+                                {
+                                    <i class="bi bi-person-circle"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-gem"></i>
+                                }
+                                Options
+                            </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
+                        <li><a class="dropdown-item" asp-action="Deconnection" asp-controller="Home">
+                                Logout
+                            </a></li>
+                    </ul>
+                </div>
+                <!-- Burger button responsive -->
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

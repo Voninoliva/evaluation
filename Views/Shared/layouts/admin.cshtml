@@ -1,0 +1,71 @@
+<style>
+    .logo {
+        @* color: var(--bs-form-valid-border-color); *@
+        font-size: 90%;
+        margin: 0%;
+    }
+</style>
+<div id="sidebar">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header position-relative">
+            <div class="d-flex align-items-center">
+                <a class="btn icon icon-left logo">
+                    <i class="bi bi-bank"></i>
+                    HOME RENOVATION
+                </a>
+
+                <div class="sidebar-toggler  x">
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="sidebar-title">Devis</li>
+                <li class="sidebar-item">
+                    <a asp-controller="Admin" asp-action="Dashboard" class='sidebar-link'>
+                        <i class="bi bi-patch-plus"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </li>
+                 <li class="sidebar-item">
+                    <a asp-controller="Admin" asp-action="Index" class='sidebar-link'>
+                        <i class="bi bi-patch-plus"></i>
+                        <span>Liste des devis</span>
+                    </a>
+                </li>
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-gift-fill"></i>
+                        <span>Imports</span>
+                    </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item ">
+                            <a asp-controller="Admin" asp-action="ImportM" class="submenu-link">Maisons,travaux,devis</a>
+                        </li>
+                        <li class="submenu-item  ">
+                            <a asp-controller="Admin" asp-action="ImportP" class="submenu-link">Paiements</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a asp-controller="Admin" asp-action="ListTravaux" class='sidebar-link'>
+                        <i class="bi bi-patch-plus"></i>
+                        <span>Liste des travaux</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a asp-controller="Admin" asp-action="ListFinitions" class='sidebar-link'>
+                        <i class="bi bi-patch-plus"></i>
+                        <span>Liste des finitions</span>
+                    </a>
+                </li>
+                <li class="sidebar-title"><a asp-action="Reset" asp-controller="Home">
+                    RESET BASE
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</div>

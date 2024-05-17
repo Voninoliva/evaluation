@@ -1,0 +1,86 @@
+@using btp.Models.includes
+@{
+    ViewData["Title"] = "Devis";
+}
+<style>
+    .table-bordered>:not(caption)>* {
+        border-width: 0 0
+    }
+
+    table {
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        border: 1px solid black;
+    }
+
+    tr {
+        padding: 2%;
+    }
+
+    #total {
+        border: 1px solid black;
+    }
+
+    .text-bold-500 {
+        font-weight: bold;
+    }
+</style>
+<section class="section">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Devis </h2>
+                        <h3>Total (+finitions):Ar @SessionHelper.GetFormatted(Model.MontantTotal)</h3>
+                        <h4>Type de finition : @Model.Data.IdtypefinitionNavigation.NomFinition</h4>
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <div class="row">
+                        <div class="">
+                            <div class="table-responsive mb-4" style="margin: 2%;">
+                                <table class="table table-bordered table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>DESIGNATION</th>
+                                            <th>U</th>
+                                            <th>Q</th>
+                                            <th>PU</th>
+                                            <th>TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                   <tbody>
+                                   
+                                            @foreach(var detail in Model.Devi){
+                                                    <tr>
+                                                        <td class="">@detail.IdtravauxNavigation.Numero </td>
+                                                        <td>@detail.IdtravauxNavigation.Designation</td>
+                                                        <td>@detail.IdtravauxNavigation.IduniteNavigation.NomUnite</td>
+                                                        <td>@detail.Quantite</td>
+                                                        <td>@SessionHelper.GetFormatted(detail.Pu)</td>
+                                                        <td>@SessionHelper.GetFormatted(detail.Total)</td>
+                                                    </tr>
+                                            }
+                                            <tr id="total">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="sous-titre">TOTAL TRAVAUX</td>
+                                            <td class="text-bold-500">@SessionHelper.GetFormatted(@Model.Total)</td>
+                                        </tr>
+                                        
+                                   </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

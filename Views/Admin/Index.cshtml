@@ -1,0 +1,155 @@
+@using btp.Models.includes
+@{
+    ViewData["Title"] = "Liste des devis";
+}
+@{
+    ViewData["Title"] = "Devis";
+}
+<section class="section">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="page-heading layout-horizontal">
+                            <div class="header-top ">
+                                <div class="container">
+                                    <div class="header-top-right">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Tableau</h4>
+                                        </div>
+                                        @* <form class="form form-horizontal">
+                                            <div class="form-body">
+    
+                                                <div class="row">
+                                                    <fieldset class="form-group col-md-3">
+                                                        <select class="form-select" id="basicSelect">
+                                                            <option>IT</option>
+                                                            <option>Blade Runner</option>
+                                                            <option>Thor Ragnarok</option>
+                                                        </select>
+                                                    </fieldset>
+                                                    <fieldset class="form-group col-md-3">
+                                                        <select class="form-select" id="basicSelect">
+                                                            <option>IT</option>
+                                                            <option>Blade Runner</option>
+                                                            <option>Thor Ragnarok</option>
+                                                        </select>
+                                                    </fieldset>
+                                                    <fieldset class="col-md-6">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control"
+                                                                id="inputGroupFile04"
+                                                                aria-describedby="inputGroupFileAddon04"
+                                                                placeholder="Search">
+                                                            <button class="btn btn-primary" type="submit"
+                                                                id="inputGroupFileAddon04"><i
+                                                                    class="bi bi-search"></i></button>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </form> *@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="">
+                            <div class="table-responsive mb-4" style="margin: 2%;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Date debut travaux</th>
+                                            <th>Client</th>
+                                            <th>Maison</th>
+                                            <th>Finition</th>
+                                             <th>Montant payé</th>
+                                            <th>Montant total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in @Model.Data)
+                                        {
+                                            if(item.PourcentagePayes<50){
+                                                <tr>
+
+                                                <td><a asp-action="Details" asp-controller="Admin" asp-route-id=@item.Iddevis>
+                                                    @item.Iddevis </a></td>
+                                                <td>@item.DateDebutTravaux.ToString("dd MMMM yyyy")</td>
+                                                <td>@item.IdclientNavigation.Numero</td>
+                                                <td>@item.IdtypemaisonNavigation.NomMaison</td>
+                                                <td>@item.IdtypefinitionNavigation.NomFinition</td>
+                                               <td style="color: red;font-weight:bolder;">@SessionHelper.GetFormatted(item.PaiementCenseEffectuees) (@item.PourcentagePayes.ToString("0.00") %)</td>
+                                               <td>@SessionHelper.GetFormatted(item.MontantTotal)</td>
+                                            </tr>
+                                            }else if(item.PourcentagePayes>50){
+                                                 <tr >
+
+                                                <td><a asp-action="Details" asp-controller="Admin" asp-route-id=@item.Iddevis>
+                                                    @item.Iddevis </a></td>
+                                                <td>@item.DateDebutTravaux.ToString("dd MMMM yyyy")</td>
+                                                <td>@item.IdclientNavigation.Numero</td>
+                                                <td>@item.IdtypemaisonNavigation.NomMaison</td>
+                                                <td>@item.IdtypefinitionNavigation.NomFinition</td>
+                                               <td style="color: green;font-weight:bolder;">@SessionHelper.GetFormatted(item.PaiementCenseEffectuees) (@item.PourcentagePayes.ToString("0.00") %)</td>
+                                               <td>@SessionHelper.GetFormatted(item.MontantTotal)</td>
+                                            </tr>
+                                            }else if(item.PourcentagePayes==50){
+                                                 <tr>
+
+                                                <td><a asp-action="Details" asp-controller="Admin" asp-route-id=@item.Iddevis>
+                                                    @item.Iddevis </a></td>
+                                                <td>@item.DateDebutTravaux.ToString("dd MMMM yyyy")</td>
+                                                <td>@item.IdclientNavigation.Numero</td>
+                                                <td>@item.IdtypemaisonNavigation.NomMaison</td>
+                                                <td>@item.IdtypefinitionNavigation.NomFinition</td>
+                                               <td>@SessionHelper.GetFormatted(item.PaiementCenseEffectuees) (@item.PourcentagePayes.ToString("0.00") %)</td>
+                                               <td>@SessionHelper.GetFormatted(item.MontantTotal)</td>
+                                            </tr>
+                                            }
+                                            
+                                              
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-primary justify-content-end">
+                                    @if(Model.CurrentPage>1){
+                                         <li class="page-item">
+                                        <a class="page-link"  tabindex="-1" aria-disabled="true"  asp-action="Index" asp-controller="Admin" asp-route-pageslide=@(Model.CurrentPage-1)><span
+                                                aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a>
+                                    </li>
+                                    }
+                                    @for(int i=0;i<@Model.TotalPage;i++){
+                                        if(i+1==Model.CurrentPage){
+                                            <li class="page-item active"><a class="page-link" asp-action="Index" asp-controller="Admin" asp-route-pageslide=@(i+1)>@(i+1)</a></li>
+                                        }else{
+                                             <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Admin" asp-route-pageslide=@(i+1)>@(i+1)</a></li>
+                                        }
+                                    }
+                                    @if(Model.CurrentPage<Model.TotalPage){
+                                        <li class="page-item">
+                                        <a class="page-link" 
+                                        asp-action="Index" asp-controller="Admin" asp-route-pageslide=@(Model.CurrentPage+1)
+                                        >
+                                            <span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+                                        </a>
+                                    </li>
+                                    }
+                                    
+                                </ul>
+                            </nav>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

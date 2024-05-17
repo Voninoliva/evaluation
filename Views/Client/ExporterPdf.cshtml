@@ -1,0 +1,147 @@
+@using btp.Models.includes
+@{
+    ViewData["Title"] = "Home Page";
+    Layout=null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/assets/compiled/css/app.css">
+<link rel="stylesheet" href="~/assets/compiled/css/app-dark.css">
+    <title>Document</title>
+</head>
+<style>
+    .sous-titre{
+        text-transform: uppercase;
+    }
+    .titre{
+        font-weight: bold;
+         text-transform: uppercase;
+    }
+</style>
+<body>
+    <section class="section">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Devis  du client : @Model.Data.IdclientNavigation.Numero</h2>
+                        <h3>Lieu : @Model.Data.Lieu</h3>
+                        <h3>Maison : @Model.Data.IdtypemaisonNavigation.NomMaison</h3>
+                        <p>Finition : @Model.Data.IdtypefinitionNavigation.NomFinition</p>
+                </div>
+                </div>
+                
+                <div class="card-content">
+                    <div class="row">
+                        <div class="">
+                            <div class="table-responsive mb-4" style="margin: 2%;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>DESIGNATION</th>
+                                            <th>U</th>
+                                            <th>Q</th>
+                                            <th>PU</th>
+                                            <th>TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                            @foreach(var detail in Model.Devi){
+                                                    <tr>
+                                                        <td class="text-bold-500">@detail.IdtravauxNavigation.Numero </td>
+                                                        <td>@detail.IdtravauxNavigation.Designation</td>
+                                                        <td>@detail.IdtravauxNavigation.IduniteNavigation.NomUnite</td>
+                                                        <td>@detail.Quantite</td>
+                                                        <td>@SessionHelper.GetFormatted(detail.Pu)</td>
+                                                        <td>@SessionHelper.GetFormatted(detail.Total)</td>
+                                                    </tr>
+                                            }
+                                            <tr id="total">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="sous-titre">TOTAL TRAVAUX </td>
+                                                <td class="text-bold-500">@SessionHelper.GetFormatted(Model.Total)</td>
+                                            </tr>
+                                             <tr id="total">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="sous-titre">TOTAL AVEC FINITION </td>
+                                                <td class="text-bold-500">@SessionHelper.GetFormatted(Model.MontantTotal)</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ <section class="section">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Paiements </h2>
+                        <p></p>
+                </div>
+                </div>
+                
+                <div class="card-content">
+                    <div class="row">
+                        <div class="">
+                            <div class="table-responsive mb-4" style="margin: 2%;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Ref Paiement</th>
+                                            <th>Montant</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                            @foreach(var detail in Model.Paiements){
+                                                    <tr>
+                                                        <td class="text-bold-500">@detail.DatePrevue.ToString("dd MMMM yyyy") </td>
+                                                        <td>@detail.RefPaiement</td>
+                                                        <td>@SessionHelper.GetFormatted(detail.Montant)</td>
+                                                    </tr>
+                                            }
+                                            <tr id="total">
+                                                <td></td>
+                                                <td class="sous-titre">TOTAL PAYEES </td>
+                                                <td class="text-bold-500">@SessionHelper.GetFormatted(Model.MontantPayes)</td>
+                                            </tr>
+                                            
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+ 
+

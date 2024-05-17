@@ -1,0 +1,69 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Home Renovation</title>
+    <link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="~/assets/compiled/css/app.css">
+    <link rel="stylesheet" href="~/assets/compiled/css/app-dark.css">
+    <link rel="stylesheet" href="~/assets/compiled/css/auth.css">
+    <link rel="stylesheet" href="~/assets/bootstrap-icons/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/assets/extensions/sweetalert2/sweetalert2.min.css">
+</head>
+
+<body>
+    <script src="~/assets/static/js/initTheme.js"></script>
+    <div class="app">
+        <div id="main">
+            @if (HttpContextAccessor.HttpContext.Session.GetString("layout") != null)
+            {
+                var nom = "layouts/" + HttpContextAccessor.HttpContext.Session.GetString("layout");
+                <partial name=@nom />
+                <header class="">
+                    <a href="#" class="burger-btn d-block d-xl-none">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+                </header>
+                <partial name="_Connection" />
+            }
+
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/assets/static/js/initTheme.js"></script>
+    <script src="~/assets/static/js/components/dark.js"></script>
+    <script src="~/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/assets/compiled/js/app.js"></script>
+    <script src="~/assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="~/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @if (TempData["Erreur"] != null)
+    {
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'error',
+                title: '@Html.Raw(Json.Serialize(TempData["Erreur"]))',
+                background: "white",
+                color: "red"
+            })
+        </script>
+    }
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

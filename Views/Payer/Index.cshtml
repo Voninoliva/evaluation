@@ -1,0 +1,106 @@
+@using btp.Models.includes
+@{
+    ViewData["Title"] = "Payer un devis";
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<section id="basic-horizontal-layouts">
+    <div class="placed-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="auth-title">Payer ce devis</h4>
+                    <p>Le total déja planifié à payer est de @SessionHelper.GetFormatted(Model.CenseAPaye)</p>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        @* asp-action="AjouterPaiement"
+                        asp-controller="Payer" *@
+                        <form class="form form-horizontal" id="formPaiement" method="get">
+                            <div class="form-body">
+                                <div class="row">
+                                    <input type="hidden" name="iddevis" value="@Model.Devi.Iddevis">
+                                    <div class="col-md-3">
+                                        <label for="first-name-horizontal">Date de paiement</label>
+                                    </div>
+                                    <fieldset class="col-md-9 form-group">
+                                        @if (TempData["date"] != null)
+                                        {
+                                            <input type="text" class="form-control" name="date" required
+                                                value="@TempData["date"]">
+                                        }
+                                        else
+                                        {
+                                            <input type="date" class="form-control" name="date" required>
+                                        }
+
+                                    </fieldset>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="first-name-horizontal">Montant</label>
+                                    </div>
+                                    <fieldset class="col-md-9 form-group">
+                                        @if (TempData["montant"] != null)
+                                        {
+                                            <input type="text" class="form-control" name="montant" required
+                                                value="@TempData["montant"]">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control" name="montant" required>
+                                        }
+
+                                    </fieldset>
+                                </div>
+                                @if (TempData["log"] != null)
+                                {
+                                    <div class="alert alert-danger"><i class="bi bi-exclamation-circle"></i>
+                                        @TempData["log"]
+                                    </div>
+                                }
+                                <div class="pour_erreur">
+
+                                </div>
+                                <div class="col-sm-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1 mt-4">Ajouter</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#formPaiement').submit(function (e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("AjouterPaiement", "Payer")',
+                data: formData,
+                success: function (response) {
+                    if (response.errors) {
+                     const erreurElement = document.querySelector(".pour_erreur");
+                        const divAlerte = document.createElement("div");
+                        divAlerte.className = "alert alert-danger";
+                        const icone = document.createElement("i");
+                        icone.className = "bi bi-exclamation-circle";
+                        divAlerte.appendChild(icone);
+                        divAlerte.appendChild(document.createTextNode(response.errors));
+                        erreurElement.appendChild(divAlerte);
+
+                    } else {
+                        window.location.href = response.url;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("erreur " + error);
+                }
+            });
+        });
+    });
+
+</script>

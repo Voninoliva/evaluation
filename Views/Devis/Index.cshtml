@@ -1,0 +1,97 @@
+@using btp.Models.includes
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    .table-bordered>:not(caption)>* {
+        border-width: 0 0
+    }
+
+    table {
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        border: 1px solid black;
+    }
+
+    tr {
+        padding: 2%;
+    }
+
+    #total {
+        border: 1px solid black;
+    }
+
+    .text-bold-500 {
+        font-weight: bold;
+    }
+</style>
+<div class="row">
+    <a asp-action="Export" asp-controller="Home">Exporter</a>
+</div>
+<section class="section">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Devis </h2>
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <div class="row">
+                        <div class="">
+                            <div class="table-responsive mb-4" style="margin: 2%;">
+                                <table class="table table-bordered table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>DESIGNATION</th>
+                                            <th>U</th>
+                                            <th>Q</th>
+                                            <th>PU</th>
+                                            <th>TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                   <tbody>
+                                    @foreach(var data in Model){
+                                                <tr>
+                                                        <td class="titre">
+                                                            @data.typeTravaux.NumeroType - @data.typeTravaux.NomTravaux
+                                                        </td>
+                                                        <td></td>
+                                                        <td class="text-bold-500"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                        </tr>
+                                            @foreach(var detail in data.details){
+                                                    <tr>
+                                                        <td class="text-bold-500">@detail.IdtravauxNavigation.Numero </td>
+                                                        <td>@detail.IdtravauxNavigation.Designation</td>
+                                                        <td>@detail.IdtravauxNavigation.IduniteNavigation.NomUnite</td>
+                                                        <td>@detail.Quantite</td>
+                                                        <td>@SessionHelper.GetFormatted(detail.Pu)</td>
+                                                        <td>@SessionHelper.GetFormatted(detail.Total)</td>
+                                                    </tr>
+                                            }
+                                            <tr id="total">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="sous-titre">TOTAL @data.typeTravaux.NomTravaux</td>
+                                            <td class="text-bold-500">@SessionHelper.GetFormatted(data.total)</td>
+                                        </tr>
+                                        }
+                                   </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

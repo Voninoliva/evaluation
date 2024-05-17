@@ -1,0 +1,49 @@
+
+@{
+    ViewData["Title"] = "Admin login";
+}
+ <section id="basic-horizontal-layouts">
+        <div class="placed-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="auth-title"> <i class="bi bi-bank"></i>CONSTRUCTION</h4>
+                        <h6>Admin</h6>
+                        <a asp-action="Admin" asp-controller="Home"></a>
+                    </div>
+                   <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-action="ConnexionAdmin" asp-controller="Home" method="post" >
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="first-name-horizontal">Email</label>
+                                        </div>
+                                        <fieldset class="col-md-9 form-group">
+                                            <input type="text" class="form-control" name="email" required>
+                                        </fieldset>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="first-name-horizontal">Mot de passe</label>
+                                        </div>
+                                        <fieldset class="col-md-9 form-group">
+                                            <input type="password" class="form-control" name="mdp" required>
+                                        </fieldset>
+                                    </div>
+                                    @if(TempData["login"]!=null){
+                                        <div class="alert alert-danger"><i class="bi bi-exclamation-circle"></i> 
+                                        @TempData["login"]
+                                        </div>
+                                    }
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1 mt-4">Connexion</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

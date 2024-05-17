@@ -1,0 +1,36 @@
+
+@{
+    ViewData["Title"] = "Update Travaux";
+}
+ <section id="basic-horizontal-layouts">
+        <div class="placed-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="auth-title"> </h4>
+                      
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-action="ExecuteUT" asp-controller="Admin" method="post" >
+                                <div class="form-body">
+                                        <input type="hidden" name="id" value="@Model.Idtravaux">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="first-name-horizontal">Prix unitaire</label>
+                                        </div>
+                                        <fieldset class="col-md-9 form-group">
+                                            <input type="text" class="form-control" name="pu" required value="@Model.Pu">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1 mt-4">Modifier</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

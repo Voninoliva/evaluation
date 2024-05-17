@@ -1,0 +1,64 @@
+
+@{
+    ViewData["Title"] = "Finitions";
+}
+ <section id="basic-horizontal-layouts">
+        <div class="placed-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Demander un devis : type de finition </h4>
+                        
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" asp-action="ConsultationDevis" asp-controller="Client" method="post" >
+                                <input type="hidden" name="idtypemaison" value="@Model.Id">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="first-name-horizontal">Type de finition</label>
+                                        </div>
+                                        <fieldset class="col-md-9 form-group">
+                                            <select class="form-select" id="basicSelect" name="idfinition">
+                                            @foreach (var s in Model.Finitions)
+                                            {
+                                                if(TempData["idfinition"]!=null && Int32.Parse(TempData["idfinition"].ToString())==s.Idtypefinition){
+                                                        <option value="@s.Idtypefinition" selected>@s.NomFinition</option>
+                                                }else{
+                                                        <option value="@s.Idtypefinition">@s.NomFinition</option>
+                                                }
+                                                
+                                            }
+                                        </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="first-name-horizontal">Date debut des travaux</label>
+                                        </div>
+                                        <fieldset class="col-md-9 form-group">
+                                            @if(TempData["date"]!=null){
+                                                 <input type="text" name="datedebuttravaux" class="form-control" value="@TempData["date"]">
+                                            }else{
+                                                 <input type="date" name="datedebuttravaux" class="form-control">
+                                            }
+                                          
+                                        </fieldset>
+                                    </div>
+                                    @if(TempData["data"]!=null){
+                                        <div class="alert alert-danger"><i class="bi bi-exclamation-circle"></i> 
+                                        @TempData["data"]
+                                        </div>
+                                    }
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1 mt-4">Demander le devis</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
